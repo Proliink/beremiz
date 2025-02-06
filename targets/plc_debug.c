@@ -28,6 +28,13 @@ void __publish_debug (void){}
 typedef unsigned int dbgvardsc_index_t;
 typedef unsigned short trace_buf_offset_t;
 
+#define __LOCATED_VAR(type, name, ...) type __##name;
+#include "LOCATED_VARIABLES.h"
+#undef __LOCATED_VAR
+#define __LOCATED_VAR(type, name, ...) type* name = &__##name;
+#include "LOCATED_VARIABLES.h"
+#undef __LOCATED_VAR
+
 #define BUFFER_EMPTY 0
 #define BUFFER_FULL 1
 
